@@ -23,6 +23,7 @@ public class PrimeActivity extends AppCompatActivity {
     private int number;
     private int isPrime;
 
+
     private static final String TAG = "PrimeActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class PrimeActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Press NEXT for the new question", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -43,10 +44,11 @@ public class PrimeActivity extends AppCompatActivity {
         onButtonClickListener();
     }
 
+    // This function handles all the button listeners and text filed display
     @SuppressLint("SetTextI18n")
     private void onButtonClickListener()
     {
-        Button true_button,false_button,next_button;
+        final Button true_button,false_button,next_button;
         number=randInt();
         isPrime=isPrimeNumber(number);
 
@@ -57,6 +59,9 @@ public class PrimeActivity extends AppCompatActivity {
         text_ques = (TextView) findViewById(R.id.ques_textView);
         text_ques.setText("Is "+number+" a prime number?");
 
+
+
+        // clicking on Next button displays new question on the screen
         next_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -64,6 +69,9 @@ public class PrimeActivity extends AppCompatActivity {
                 number=randInt();
                 isPrime=isPrimeNumber(number);
                 text_ques.setText("Is "+number+" a prime number?.");
+
+                true_button.setEnabled(true);
+                false_button.setEnabled(true);
             }
         });
         true_button.setOnClickListener(new View.OnClickListener(){
@@ -72,13 +80,13 @@ public class PrimeActivity extends AppCompatActivity {
                 Log.d(TAG, "Clicked True");
                 if(isPrime==1)
                 {
-                    Toast.makeText(PrimeActivity.this,"   Your answer in Correct\n" +
+                    Toast.makeText(PrimeActivity.this,"    Your answer is Correct\n" +
                             "Press NEXT for new question",Toast.LENGTH_SHORT).show();
                 }
                 else
-                    Toast.makeText(PrimeActivity.this,"   Your answer in Incorrect\n"+"Press NEXT for new question",Toast.LENGTH_SHORT).show();
-
-
+                    Toast.makeText(PrimeActivity.this,"   Your answer is Incorrect\n"+"Press NEXT for new question",Toast.LENGTH_SHORT).show();
+                true_button.setEnabled(false);
+                false_button.setEnabled(false);
             }
         });
         false_button.setOnClickListener(new View.OnClickListener(){
@@ -87,16 +95,21 @@ public class PrimeActivity extends AppCompatActivity {
                 Log.d(TAG, "Clicked False");
                 if(isPrime==0)
                 {
-                    Toast.makeText(PrimeActivity.this,"   Your answer in Correct\n" +
+                    Toast.makeText(PrimeActivity.this,"    Your answer is Correct\n" +
                             "Press NEXT for new question",Toast.LENGTH_SHORT).show();
                 }
                 else
-                    Toast.makeText(PrimeActivity.this,"   Your answer in Incorrect\n" +
+                    Toast.makeText(PrimeActivity.this,"   Your answer is Incorrect\n" +
                             "Press NEXT for new question",Toast.LENGTH_SHORT).show();
+
+                true_button.setEnabled(false);
+                false_button.setEnabled(false);
 
             }
         });
     }
+
+    // This function checks whether the random number generated is prime or not
     private int isPrimeNumber(int number) {
 
         for (int i = 2; i <= number / 2; i++) {
@@ -107,7 +120,7 @@ public class PrimeActivity extends AppCompatActivity {
         return 1;
     }
 
-
+    //This function generates random numbers from 1-1000
     private int randInt()
     {
         Random r = new Random();

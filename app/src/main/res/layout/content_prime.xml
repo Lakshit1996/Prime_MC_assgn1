@@ -10,7 +10,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.lakshit.primeapplication.PrimeActivity"
-    tools:showIn="@layout/activity_prime">
+    tools:showIn="@layout/activity_prime"
+    android:background="#020202"
+    tools:ignore="Overdraw">
 
     <Button
         android:layout_width="wrap_content"
@@ -20,7 +22,7 @@
         android:layout_centerVertical="true"
         android:layout_alignEnd="@+id/next_button"
         android:layout_marginEnd="56dp"
-        android:drawableEnd="@mipmap/arrow_up"/>
+        android:drawableEnd="@mipmap/arrow_up" />
 
     <Button
         android:layout_width="wrap_content"
@@ -46,8 +48,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ques_textView"
+        android:layout_marginBottom="40dp"
+        android:textColor="#fcf9f9"
+        android:textSize="@dimen/design_navigation_icon_size"
         android:layout_above="@+id/true_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="28dp" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
