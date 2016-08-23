@@ -1,6 +1,8 @@
 package com.example.lakshit.primeapplication;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -32,14 +34,7 @@ public class PrimeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself.", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         onButtonClickListener();
     }
@@ -48,7 +43,7 @@ public class PrimeActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void onButtonClickListener()
     {
-        final Button true_button,false_button,next_button;
+        final Button true_button,false_button,next_button,hint_button,cheat_button;
         number=randInt();
         isPrime=isPrimeNumber(number);
 
@@ -56,6 +51,8 @@ public class PrimeActivity extends AppCompatActivity {
         true_button = (Button) findViewById(R.id.true_button);
         false_button = (Button) findViewById(R.id.false_button);
         next_button = (Button) findViewById(R.id.next_button);
+        cheat_button = (Button) findViewById(R.id.cheat_button);
+        hint_button = (Button) findViewById(R.id.hint_button);
         text_ques = (TextView) findViewById(R.id.ques_textView);
         text_ques.setText("Is "+number+" a prime number?");
 
@@ -68,7 +65,7 @@ public class PrimeActivity extends AppCompatActivity {
                 Log.d(TAG, "Clicked Next");
                 number=randInt();
                 isPrime=isPrimeNumber(number);
-                text_ques.setText("Is "+number+" a prime number?.");
+                text_ques.setText("Is "+number+" a prime number?");
 
                 true_button.setEnabled(true);
                 false_button.setEnabled(true);
@@ -107,7 +104,42 @@ public class PrimeActivity extends AppCompatActivity {
 
             }
         });
+        hint_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "Clicked Hint");
+                Intent intent=new Intent(view.getContext(),HintActivity.class);
+                startActivityForResult(intent,1);
+            }
+
+
+        });
+        cheat_button.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Log.d(TAG, "Clicked Cheat");
+                Intent intent=new Intent(view.getContext(),CheatActivity.class);
+                intent.putExtra("Number", number);
+                intent.putExtra("Answer", isPrime);
+                startActivityForResult(intent,1);
+            }
+
+
+        });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+
+            if (resultCode == Activity.RESULT_OK) {
+                String result=data.getStringExtra("result");
+                Toast.makeText(PrimeActivity.this,result,Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 
     // This function checks whether the random number generated is prime or not
     private int isPrimeNumber(int number) {

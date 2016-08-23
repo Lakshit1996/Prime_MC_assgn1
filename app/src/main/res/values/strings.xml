@@ -5,6 +5,8 @@
     <string name="next">NEXT</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
+    <string name="title_activity_hint">HintActivity</string>
+    <string name="title_activity_cheat">CheatActivity</string>
 
 
 </resources>
